@@ -12,6 +12,9 @@
 
 ActiveRecord::Schema.define(version: 20171117174737) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "client_messages", force: :cascade do |t|
     t.integer "user_id"
     t.integer "trainer_id"
