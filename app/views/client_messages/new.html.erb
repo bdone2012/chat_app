@@ -1,0 +1,65 @@
+<% if logged_in? || logged_in_trainer? %>
+	<h1>Message Center</h1>
+	<hr>
+	</br>
+	<% if logged_in? %>
+		<div id="user-messages">
+			<button>Chat</button>
+			<div class="user-inside" style="display:none;">
+				<% @user_messages.each do |message|  %>
+					<ul>
+						<li><%= message.message_content %></li>
+					</ul>
+				<% end %>
+			</div>
+		</div>
+	<% end %>
+
+	<% if logged_in_trainer? %>
+		<div id="trainer-messages">
+			<button>Chat</button>
+			<div class="trainer-inside" style="display:none;">
+				<% @trainer_messages.each do |message|  %>
+					<ul>
+						<li><%= message.message_content %></li>
+					</ul>
+				<% end %>
+			</div>
+		</div>
+	<% end %>
+	
+	</br>
+	</br>
+
+	<button class="new-chat">New Chat</button>
+	<div class="send-messages" style="display: none;">
+		<h2>Send Message</h2>
+		<%= form_for @client_message do |f| %>
+			<%= f.text_field(:message_content, :placeholder => "Message") %>
+
+			<p>Choose either a User or a Trainer to recieve the Message:</p>
+			<label>User:</label>
+			<select name="client_message[email_user]" id="client_message_email_user">
+				<option></option>
+				<% @users.each do |user|  %>
+					<option value="<%= user.email %>"><%= user.name %></option>
+				<% end %>
+			</select>
+			</br>
+			</br>
+			<label>Trainer:</label>
+			<select name="client_message[email_trainer]" id="client_message_email_trainer">
+				<option></option>
+				<% @trainers.each do |trainer|  %>
+					<option value="<%= trainer.email %>"><%= trainer.name %></option>
+				<% end %>
+			</select>
+				</br></br>
+			<%= f.submit %>
+		<% end %>
+	</div>
+
+
+<% else %>
+	<h2>Please go back and log in or sign up.</h2>
+<% end %>
