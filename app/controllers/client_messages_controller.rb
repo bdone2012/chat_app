@@ -12,7 +12,6 @@ class ClientMessagesController < ApplicationController
 		elsif logged_in_trainer?
 			@trainer_messages = ClientMessage.where(email_trainer: current_trainer.email)
 		end
-	    # binding.pry
 	end
 
 	def create
@@ -24,7 +23,6 @@ class ClientMessagesController < ApplicationController
 			elsif logged_in_trainer? == true
 				@client_message.update(trainer_id: current_trainer.id )
 			end
-		  binding.pry
 		  redirect_to("/client_messages/new")
 		else
 		  render :new
